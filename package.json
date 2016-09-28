@@ -1,0 +1,41 @@
+{
+  "name": "js-libp2p-pstn-node",
+  "version": "1.0.0",
+  "description": "A specialized node for the libp2p pubsub testnet",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha -t 60000 test/**/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gavinmcdermott/js-libp2p-pstn-node.git"
+  },
+  "keywords": [
+    "libp2p",
+    "pubsub",
+    "testnet",
+    "ipfs",
+    "messaging"
+  ],
+  "author": "Gavin McDermott <gavinmcdermott@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gavinmcdermott/js-libp2p-pstn-node/issues"
+  },
+  "homepage": "https://github.com/gavinmcdermott/js-libp2p-pstn-node#readme",
+  "dependencies": {
+    "abstract-blob-store": "3.2.0",
+    "debug": "2.2.0",
+    "ipfs-bitswap": "0.7.1",
+    "ipfs-repo": "0.9.1",
+    "libp2p-ipfs": "0.14.1",
+    "multiaddr": "2.0.3",
+    "os": "0.1.1",
+    "peer-id": "0.7.0",
+    "peer-info": "0.7.1",
+    "ramda": "0.22.1"
+  },
+  "devDependencies": {
+    "chai": "3.5.0"
+  }
+}
