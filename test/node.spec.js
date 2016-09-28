@@ -11,31 +11,38 @@ const Repo = require('ipfs-repo')
 const Node = require('./../src/index')
 
 describe('Node', () => {
-  let node
+  let nodeA
+  let nodeB
 
   // Must kill connections for further other tests!
   after(() => {
-    node.libp2p.swarm.close()
+    nodeA.libp2p.swarm.close()
+    nodeB.libp2p.swarm.close()
   })
 
   it('succeeds', () => {
-    node = new Node()
-    expect(node).to.exist
-    expect(node instanceof Node).to.be.true
-    expect(node.peerInfo).to.exist
-    expect(node.peerInfo instanceof PeerInfo).to.be.true
-    expect(node.libp2p).to.exist
-    expect(node.libp2p instanceof libp2p.Node).to.be.true
-    expect(node.repo).to.exist
-    expect(node.repo instanceof Repo).to.be.true
-    expect(node.bitswap).to.exist
-    expect(node.bitswap instanceof Bitswap).to.be.true
+    nodeA = new Node()
+    expect(nodeA).to.exist
+    expect(nodeA instanceof Node).to.be.true
+    expect(nodeA.peerInfo).to.exist
+    expect(nodeA.peerInfo instanceof PeerInfo).to.be.true
+    expect(nodeA.libp2p).to.exist
+    expect(nodeA.libp2p instanceof libp2p.Node).to.be.true
+    expect(nodeA.repo).to.exist
+    expect(nodeA.repo instanceof Repo).to.be.true
+    expect(nodeA.bitswap).to.exist
+    expect(nodeA.bitswap instanceof Bitswap).to.be.true
+  })
+
+  it('multiple nodes init', () => {
+    nodeB = new Node(1)
+    expect(nodeB).to.exist
   })
 
   it(`init`, () => {
-    return node.init().then((n) => {
-      expect(n).to.exist
-      expect(n instanceof Node).to.be.true
+    return nodeA.init().then((instance) => {
+      expect(instance).to.exist
+      expect(instance instanceof Node).to.be.true
     })
   })
 })
