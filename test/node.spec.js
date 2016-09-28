@@ -8,9 +8,9 @@ const libp2p = require('libp2p-ipfs')
 const PeerInfo = require('peer-info')
 const Repo = require('ipfs-repo')
 
-const Node = require('./../src/node')
+const Node = require('./../src/index')
 
-describe('Nodes', () => {
+describe('Node', () => {
   let node
 
   // Must kill connections for further other tests!
