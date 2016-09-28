@@ -10,14 +10,25 @@ const PeerInfo = require('peer-info')
 const R = require('ramda')
 const Repo = require('ipfs-repo')
 
-const { log, keySize, basePort }  = require('./config')
+const { log }  = require('./config')
 
 module.exports = class Node {
-  constructor(offset=0) {
+  constructor(options={}) {
+    const portOffset = options.portOffset || 0
+    const port = options.port || 12000
+
+    if (!options.id) {
+      log.error('Missing <id> from options')
+    }
+    if (!options.id.privKey) {
+      log.error('Missing <privKey> from options.id')
+    }
+    const privKey = options.id.privKey
+
     // Peer info
-    const peerId = PeerId.create({ bits: keySize })
+    const peerId = PeerId.createFromPrivKey(privKey)
     const peerInstance = new PeerInfo(peerId)
-    const peerAddr1 = multiaddr(`/ip4/127.0.0.1/tcp/${basePort + offset}/ipfs/${peerInstance.id.toB58String()}`)
+    const peerAddr1 = multiaddr(`/ip4/127.0.0.1/tcp/${port + portOffset}/ipfs/${peerInstance.id.toB58String()}`)
     peerInstance.multiaddr.add(peerAddr1)
 
     // Libp2p info
