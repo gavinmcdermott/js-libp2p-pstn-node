@@ -9,8 +9,10 @@ const PeerId = require('peer-id')
 const PeerInfo = require('peer-info')
 const R = require('ramda')
 const Repo = require('ipfs-repo')
+const crypto = require('libp2p-crypto')
 
 const { log }  = require('./config')
+const { NodeError }  = require('./errors')
 
 module.exports = class Node {
   constructor(options={}) {
@@ -18,12 +20,23 @@ module.exports = class Node {
     const port = options.port || 12000
 
     if (!options.id) {
-      log.error('Missing <id> from options')
+      throw new NodeError('missing <options.id>')
     }
     if (!options.id.privKey) {
-      log.error('Missing <privKey> from options.id')
+      throw new NodeError('missing <options.id.privKey>')
     }
+
     const privKey = options.id.privKey
+    let keyBuffer = ''
+
+    if (typeof privKey === 'string') {
+      try {
+        keyBuffer = new Buffer(privKey, 'base64')
+        crypto.unmarshalPrivateKey(keyBuffer, 'base64')
+      } catch (e) {
+        throw e
+      }
+    }
 
     // Peer info
     const peerId = PeerId.createFromPrivKey(privKey)

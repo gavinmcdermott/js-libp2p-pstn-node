@@ -31,29 +31,59 @@ describe('Node', () => {
     nodeB.libp2p.swarm.close()
   })
 
-  it('succeeds', () => {
-    nodeA = new Node(configA)
-    expect(nodeA).to.exist
-    expect(nodeA instanceof Node).to.be.true
-    expect(nodeA.peerInfo).to.exist
-    expect(nodeA.peerInfo instanceof PeerInfo).to.be.true
-    expect(nodeA.libp2p).to.exist
-    expect(nodeA.libp2p instanceof libp2p.Node).to.be.true
-    expect(nodeA.repo).to.exist
-    expect(nodeA.repo instanceof Repo).to.be.true
-    expect(nodeA.bitswap).to.exist
-    expect(nodeA.bitswap instanceof Bitswap).to.be.true
+  describe('constructor', () => {
+    it('fails: missing options.id', () => {
+      const thrower = () => new Node({})
+      expect(thrower).to.throw
+    })
+
+    it('fails: missing options.id.privkey', () => {
+      const missingKey = () => new Node({
+        id: {}
+      })
+      expect(missingKey).to.throw
+    })
+
+    it('fails: invalid options.id.privkey', () => {
+      const invalidKey = () => new Node({
+        id: { privKey: 'foo' }
+      })
+      expect(invalidKey).to.throw
+    })
+
+    it('success: A', () => {
+      nodeA = new Node(configA)
+      expect(nodeA).to.exist
+      expect(nodeA instanceof Node).to.be.true
+      expect(nodeA.peerInfo).to.exist
+      expect(nodeA.peerInfo instanceof PeerInfo).to.be.true
+      expect(nodeA.libp2p).to.exist
+      expect(nodeA.libp2p instanceof libp2p.Node).to.be.true
+      expect(nodeA.repo).to.exist
+      expect(nodeA.repo instanceof Repo).to.be.true
+      expect(nodeA.bitswap).to.exist
+      expect(nodeA.bitswap instanceof Bitswap).to.be.true
+    })
+
+    it('success: B', () => {
+      nodeB = new Node(configB)
+      expect(nodeB).to.exist
+    })
   })
 
-  it('multiple nodes init', () => {
-    nodeB = new Node(configB)
-    expect(nodeB).to.exist
-  })
+  describe('init', () => {
+    it(`success: A`, () => {
+      return nodeA.init().then((instance) => {
+        expect(instance).to.exist
+        expect(instance instanceof Node).to.be.true
+      })
+    })
 
-  it(`init`, () => {
-    return nodeA.init().then((instance) => {
-      expect(instance).to.exist
-      expect(instance instanceof Node).to.be.true
+    it(`success: B`, () => {
+      return nodeB.init().then((instance) => {
+        expect(instance).to.exist
+        expect(instance instanceof Node).to.be.true
+      })
     })
   })
 })
