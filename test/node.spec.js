@@ -71,16 +71,16 @@ describe('Node', () => {
     })
   })
 
-  describe('init', () => {
+  describe('start', () => {
     it(`success: A`, () => {
-      return nodeA.init().then((instance) => {
+      return nodeA.start().then((instance) => {
         expect(instance).to.exist
         expect(instance instanceof Node).to.be.true
       })
     })
 
     it(`success: B`, () => {
-      return nodeB.init().then((instance) => {
+      return nodeB.start().then((instance) => {
         expect(instance).to.exist
         expect(instance instanceof Node).to.be.true
       })

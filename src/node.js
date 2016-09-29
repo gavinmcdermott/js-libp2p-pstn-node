@@ -61,12 +61,12 @@ module.exports = class Node {
     this.bitswap = bitswapInstance
   }
 
-  init() {
+  start() {
     return new Promise((resolve, reject) => {
       this.libp2p.start((err) => {
         if (err) {
           // TODO: what is the best way to handle failures?
-          log.error(`Unable to init: ${this.peerInfo.id.toB58String()}`)
+          log.error(`Unable to start Node libp2p: ${this.peerInfo.id.toB58String()}`)
           return reject(err)
         }
         return resolve(this)
