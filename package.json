@@ -1,6 +1,6 @@
 {
   "name": "libp2p-pstn-node",
-  "version": "1.0.4",
+  "version": "0.0.1",
   "description": "A specialized node for the libp2p pubsub testnet",
   "main": "src/index.js",
   "scripts": {
