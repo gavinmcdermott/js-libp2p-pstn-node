@@ -1,14 +1,10 @@
 'use strict'
 
-const Bitswap = require('ipfs-bitswap')
-const bs = require('abstract-blob-store')
 const libp2p = require('libp2p-ipfs')
 const multiaddr = require('multiaddr')
-const os = require('os')
 const PeerId = require('peer-id')
 const PeerInfo = require('peer-info')
 const R = require('ramda')
-const Repo = require('ipfs-repo')
 const crypto = require('libp2p-crypto')
 
 const { log }  = require('./config')
@@ -47,18 +43,8 @@ module.exports = class Node {
     // Libp2p info
     const libp2pInstance = new libp2p.Node(peerInstance)
 
-    // object storage
-    const tmpDir = os.tmpdir()
-    const repoPath = `${tmpDir}/${peerInstance.id.toB58String()}`
-    const repoInstance = new Repo(repoPath, { stores: bs })
-
-    // bitswap instance
-    const bitswapInstance = new Bitswap(peerInstance, libp2pInstance, repoInstance.datastore, peerInstance.peerBook)
-
     this.peerInfo = peerInstance
     this.libp2p = libp2pInstance
-    this.repo = repoInstance
-    this.bitswap = bitswapInstance
   }
 
   start() {

@@ -24,10 +24,7 @@
   },
   "homepage": "https://github.com/gavinmcdermott/js-libp2p-pstn-node#readme",
   "dependencies": {
-    "abstract-blob-store": "3.2.0",
     "debug": "2.2.0",
-    "ipfs-bitswap": "0.7.1",
-    "ipfs-repo": "0.9.1",
     "libp2p-crypto": "0.6.1",
     "libp2p-ipfs": "0.14.1",
     "multiaddr": "2.0.3",

@@ -3,10 +3,8 @@
 const expect = require('chai').expect
 const R = require('ramda')
 
-const Bitswap = require('ipfs-bitswap')
 const libp2p = require('libp2p-ipfs')
 const PeerInfo = require('peer-info')
-const Repo = require('ipfs-repo')
 
 const keys = require('./fixtures/keys')
 const Node = require('./../src/index')
@@ -59,10 +57,6 @@ describe('Node', () => {
       expect(nodeA.peerInfo instanceof PeerInfo).to.be.true
       expect(nodeA.libp2p).to.exist
       expect(nodeA.libp2p instanceof libp2p.Node).to.be.true
-      expect(nodeA.repo).to.exist
-      expect(nodeA.repo instanceof Repo).to.be.true
-      expect(nodeA.bitswap).to.exist
-      expect(nodeA.bitswap instanceof Bitswap).to.be.true
     })
 
     it('success: B', () => {
